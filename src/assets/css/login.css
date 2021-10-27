@@ -1,0 +1,224 @@
+.main {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    width: 100vw;
+    height: 100vh;
+    background: url("../images/login/background.png");
+}
+
+.middle-cloud img {
+    position: absolute;
+    left: 40.76%;
+    right: 40.69%;
+    top: 7.23%;
+    bottom: 79.79%;
+}
+
+.right-cloud img {
+    position: absolute;
+    left: 74.03%;
+    right: 6.32%;
+    top: 7.23%;
+    bottom: 72.95%;
+}
+
+.earth img {
+    position: absolute;
+    left: 7.78%;
+    right: 68.82%;
+    top: 49.9%;
+    bottom: 16.5%;
+}
+
+.welcome-text {
+    position: absolute;
+    width: 40.9%;
+    height: 19.3%;
+    left: 0.625%;
+    top: 25%;
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 66px;
+    text-align: center;
+    white-space: pre-line;
+
+    color: #FFFFFF;
+}
+
+.login-box {
+    position: absolute;
+    width: 41.875%;
+    height: 50%;
+    left: 51.8%;
+    top: 37.99%;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+}
+
+.logo-login img {
+    position: absolute;
+    width: 5%;
+    left: 70.139%;
+    top: 41.111%;
+}
+
+.other-way-to-login {
+    position: absolute;
+    left: 57.43%;
+    right: 11.88%;
+    top: 51%;
+    bottom: 43%;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.Gmail-bg {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    border: 1px solid #DCDFE6;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.Gmail-button {
+    position: absolute;
+    height: 19px;
+    left: 21.05%;
+    right: 21.05%;
+    top: calc(50% - 19px / 2 + 1.5px);
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #4D4F53;
+}
+
+.login-button-box {
+    position: absolute;
+    left: 65.83%;
+    right: 20.28%;
+    top: 85.34%;
+    bottom: 8.5%;
+}
+
+.login-button {
+    position: absolute;
+    height: 33px;
+    left: 26%;
+    right: 25.58%;
+    top: calc(50% - 33px / 2);
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
+.login-button-bg {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #0486FE;
+    border-radius: 4px;
+}
+
+.account-box {
+    position: absolute;
+    width: 32.847%;
+    height: 5.469%;
+    left: 56.319%;
+    top: 64%;
+}
+
+.account-name {
+    position: absolute;
+    height: 16px;
+    left: 6.55%;
+    right: 70.82%;
+    top: calc(50% - 16px / 2);
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 89%;
+    /* identical to box height, or 89% */
+
+
+    color: #000000;
+}
+
+.account-input {
+    position: absolute;
+    left: 29.2%;
+    width: 71%;
+    height: 100%;
+    padding: 0;
+    border: 1px solid #1989FA;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.password-box{
+    position: absolute;
+    width: 32.847%;
+    height: 5.469%;
+    left: 56.319%;
+    top: 73%;
+}
+
+.password-name{
+    position: absolute;
+    height: 16px;
+    left: 6.55%;
+    right: 70.82%;
+    top: calc(50% - 16px/2);
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 16px;
+    /* identical to box height, or 89% */
+
+
+    color: #000000;
+}
+
+.password-input{
+    position: absolute;
+    left: 29.2%;
+    width: 71%;
+    height: 100%;
+
+    border: 1px solid #1989FA;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
