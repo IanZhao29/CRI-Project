@@ -28,16 +28,16 @@
       <div class="main-module">
         <div class="main-module-bg"></div>
         <label for="date" class="date-box">
-          <div class="date-name">Date: </div>
-          <input type="date" id="date" class="date-input">
+          <div class="input-name">Date: </div>
+          <input type="date" id="date" class="input-box">
         </label>
         <label for="area" class="area-box">
-          <div class="area-name">Area: </div>
-          <input type="text" id="area" class="date-input">
+          <div class="input-name">Area: </div>
+          <input type="text" id="area" class="input-box">
         </label>
         <label for="id" class="id-box">
-          <div class="id-name">ID: </div>
-          <input type="text" id="id" class="id-input">
+          <div class="input-name">ID: </div>
+          <input type="text" id="id" class="input-box">
         </label>
         <div class="query-button-box">
           <div class="query-button">
@@ -47,14 +47,14 @@
           </div>
 
         </div>
-        <div class="line-chart-1">
-          <div class="line-chart-1-bg"></div>
+        <div class="line-chart line-chart-1">
+          <div class="line-chart-bg line-chart-1-bg"></div>
         </div>
-        <div class="line-chart-2">
-          <div class="line-chart-2-bg"></div>
+        <div class="line-chart line-chart-2">
+          <div class="line-chart-bg line-chart-2-bg"></div>
         </div>
-        <div class="line-chart-3">
-          <div class="line-chart-3-bg"></div>
+        <div class="line-chart line-chart-3">
+          <div class="line-chart-bg line-chart-3-bg"></div>
         </div>
       </div>
       <div class="map">

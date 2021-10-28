@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import homepage_bg from "@/components/homepage_bg";
+import homepage_bg from "../components/homepage_bg";
 
 export default {
   name: "Home",
