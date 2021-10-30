@@ -25,7 +25,7 @@
         <div class="Gmail-bg"></div>
         <div class="Gmail-button">{{ gmail }}</div>
       </div>
-      <div class="input-box">
+      <div class="login-input-box">
         <label for="account" class="account-box">
           <div class="account-name">Account:</div>
           <input class="account-input" type="text" id="account">
