@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
 <!--    <left_side></left_side>-->
     <keep-alive :include="cachedViews">
       <router-view :key="key" />

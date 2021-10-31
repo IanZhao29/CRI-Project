@@ -13,6 +13,8 @@ Vue.use(ElementUI)
 
 //Echarts
 import * as echarts from 'echarts'
+
+import vuetify from './plugins/vuetify'
 Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
@@ -20,5 +22,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')
