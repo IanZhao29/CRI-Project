@@ -27,7 +27,7 @@
       </v-row>
     </v-app-bar>
     <v-main>
-      <v-container fluid>
+      <v-container fluid style="background-color: #f1f1f1">
         <router-view />
       </v-container>
     </v-main>

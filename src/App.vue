@@ -5,6 +5,7 @@
     <keep-alive :include="cachedViews">
       <router-view :key="key" />
     </keep-alive>
+<!--    <Home1></Home1>-->
   </div>
 </template>
 
