@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "@/views/Login";
 import Layout from "../components/layout/Layout";
-import HelloWorld from "../components/HelloWorld";
 import Home1 from "../views/HomePage/Home1";
+import Control from "../views/Contorl/Control";
 
 Vue.use(VueRouter)
 
@@ -24,9 +24,9 @@ const routes = [
                 component: Home1
             },
             {
-                path: '/table',
-                name: 'table',
-                component: HelloWorld
+                path: '/control',
+                name: 'control',
+                component: Control
             }
         ]
     },

@@ -14,7 +14,12 @@
           dense
           nav
       >
-        <v-list-item class="px-2" link @click="nav2">
+        <v-list-item class="px-2" link @click="nav2Home">
+          <v-list-item-action>
+            <v-img src="../../assets/images/homepage_bg/house_default/house_defalut_0.png"></v-img>
+          </v-list-item-action>
+        </v-list-item>
+        <v-list-item class="px-2" link @click="nav2Control">
           <v-list-item-action>
             <v-img src="../../assets/images/homepage_bg/house_default/house_defalut_0.png"></v-img>
           </v-list-item-action>
@@ -23,7 +28,8 @@
     </v-navigation-drawer>
     <v-app-bar app>
       <v-row>
-        <v-col class="d-flex" align-self="end">User</v-col>
+        <v-spacer></v-spacer>
+        <v-col align-self="end">User</v-col>
       </v-row>
     </v-app-bar>
     <v-main>
@@ -47,8 +53,11 @@ export default {
   },
 
   methods: {
-    nav2() {
+    nav2Home() {
       console.log("Nav 2 Page")
+    },
+    nav2Control() {
+      this.$router.push('/control');
     }
   },
 };
