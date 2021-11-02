@@ -1,38 +1,38 @@
 <template>
-  <div class="main">
-    <div class="top">
-      <div class="middle-cloud">
+  <div class="login-main">
+    <div class="login-top">
+      <div class="login-middle-cloud">
         <img :src="middleCloud" alt="middle_cloud">
       </div>
-      <div class="right-cloud">
+      <div class="login-right-cloud">
         <img :src="rightCloud" alt="right_cloud">
       </div>
     </div>
-    <div class="left">
-      <div class="welcome-text">
+    <div class="login-left">
+      <div class="login-welcome-text">
         {{ welcome }}
       </div>
-      <div class="earth">
+      <div class="login-earth">
         <img :src="earth" alt="earth">
       </div>
     </div>
-    <div class="right">
+    <div class="login-right">
       <div class="login-box"></div>
-      <div class="logo-login">
+      <div class="login-logo">
         <img :src="logo" alt="CRI_logo">
       </div>
       <div class="other-way-to-login">
-        <div class="Gmail-bg"></div>
-        <div class="Gmail-button">{{ gmail }}</div>
+        <div class="login-Gmail-bg"></div>
+        <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
       <div class="login-input-box">
-        <label for="account" class="account-box">
-          <div class="account-name">Account:</div>
-          <input class="account-input" type="text" id="account">
+        <label for="account" class="login-account-box">
+          <div class="login-account-name">Account:</div>
+          <input class="login-account-input" type="text" id="account">
         </label>
-        <label for="password" class="password-box">
-          <div class="password-name">Password:</div>
-          <input class="password-input" type="password" id="password">
+        <label for="password" class="login-password-box">
+          <div class="login-password-name">Password:</div>
+          <input class="login-password-input" type="password" id="password">
         </label>
       </div>
       <div class="login-button-box" v-on:click="goToHome">

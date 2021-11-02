@@ -1,15 +1,15 @@
-.main {
+.login-main {
     position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 100vw;
     height: 100vh;
     background: url("../images/login/background.png");
 }
 
-.middle-cloud img {
+.login-middle-cloud img {
     position: absolute;
     left: 40.76%;
     right: 40.69%;
@@ -17,7 +17,7 @@
     bottom: 79.79%;
 }
 
-.right-cloud img {
+.login-right-cloud img {
     position: absolute;
     left: 74.03%;
     right: 6.32%;
@@ -25,7 +25,7 @@
     bottom: 72.95%;
 }
 
-.earth img {
+.login-earth img {
     position: absolute;
     left: 7.78%;
     right: 68.82%;
@@ -33,7 +33,7 @@
     bottom: 16.5%;
 }
 
-.welcome-text {
+.login-welcome-text {
     position: absolute;
     width: 40.9%;
     height: 19.3%;
@@ -63,7 +63,7 @@
     border-radius: 50px;
 }
 
-.logo-login img {
+.login-logo img {
     position: absolute;
     width: 5%;
     left: 70.139%;
@@ -80,7 +80,7 @@
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.Gmail-bg {
+.login-Gmail-bg {
     position: absolute;
     left: 0%;
     right: 0%;
@@ -92,7 +92,7 @@
     border-radius: 4px;
 }
 
-.Gmail-button {
+.login-Gmail-button {
     position: absolute;
     height: 19px;
     left: 21.05%;
@@ -149,7 +149,7 @@
     border-radius: 4px;
 }
 
-.account-box {
+.login-account-box {
     position: absolute;
     width: 32.847%;
     height: 5.469%;
@@ -157,7 +157,7 @@
     top: 64%;
 }
 
-.account-name {
+.login-account-name {
     position: absolute;
     height: 16px;
     left: 6.55%;
@@ -175,7 +175,7 @@
     color: #000000;
 }
 
-.account-input {
+.login-account-input {
     position: absolute;
     left: 29.2%;
     width: 71%;
@@ -186,7 +186,7 @@
     border-radius: 4px;
 }
 
-.password-box{
+.login-password-box{
     position: absolute;
     width: 32.847%;
     height: 5.469%;
@@ -194,7 +194,7 @@
     top: 73%;
 }
 
-.password-name{
+.login-password-name{
     position: absolute;
     height: 16px;
     left: 6.55%;
@@ -212,7 +212,7 @@
     color: #000000;
 }
 
-.password-input{
+.login-password-input{
     position: absolute;
     left: 29.2%;
     width: 71%;

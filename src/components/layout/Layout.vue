@@ -16,12 +16,12 @@
       >
         <v-list-item class="px-2" link @click="nav2Home">
           <v-list-item-action>
-            <v-img src="../../assets/images/homepage_bg/house_default/house_defalut_0.png"></v-img>
+            <v-img src="../../assets/images/homepage_bg/nav_default/nav_default_0.png"></v-img>
           </v-list-item-action>
         </v-list-item>
         <v-list-item class="px-2" link @click="nav2Control">
           <v-list-item-action>
-            <v-img src="../../assets/images/homepage_bg/house_default/house_defalut_0.png"></v-img>
+            <v-img src="../../assets/images/homepage_bg/nav_default/nav_default_0.png"></v-img>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -54,10 +54,10 @@ export default {
 
   methods: {
     nav2Home() {
-      console.log("Nav 2 Page")
+      this.$router.push('home');
     },
     nav2Control() {
-      this.$router.push('/control');
+      this.$router.push('control');
     }
   },
 };
