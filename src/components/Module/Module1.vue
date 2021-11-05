@@ -95,6 +95,7 @@
       <v-col>
         <v-container>
           <v-card class="lineChart2"
+                  style="border-radius: 50px"
                   v-bind:style="{background: this.weather.color}"
           >
             <v-row>
@@ -175,7 +176,7 @@ export default {
   data() {
     return {
       searchKey: "",
-      URL: "/generator/sensordatatest/list",
+      URL: "/generator/sensordatatest/testInfo/",
       temp: 0,
       hum: 0,
       ppm: 0,
@@ -183,12 +184,12 @@ export default {
       timer: null,
       weatherVal: '',
       sensorData: [],
+      page: 1592,
     }
   },
   computed: {
     humWidth: function () {
       const width = (this.hum / 100) * 105
-      console.log(width + "px")
       return width + "px"
     },
     weather: function () {
@@ -208,13 +209,13 @@ export default {
   },
   methods: {
     query() {
-      getList('GET', this.URL).then(res => {
+      getList('GET', this.URL+this.page).then(res => {
+        console.log(res)
         this.sensorData = res.data.page.list
         this.dataNow = res.data.page.list.pop()
         this.temp = this.dataNow.temperature
         this.hum = this.dataNow.humidity
         this.ppm = this.dataNow.ppm
-        console.log(this.dataNow)
         this.init(res.data.page.list.slice(-7))
       }).catch(err => {
         console.log(err)
@@ -227,10 +228,10 @@ export default {
       let seriesPpm = []
       for (let i = data.length - 1; i >= 0; i--) {
         let item = data.pop()
-        xAxisData[i] = item.captureDataTime
-        seriesTemp[i] = (item.temperature)
-        seriesHum[i] = (item.humidity)
-        seriesPpm[i] = (item.ppm)
+        xAxisData[i] = item.captureDataTime.slice(11,19)
+        seriesTemp[i] = item.temperature
+        seriesHum[i] = item.humidity
+        seriesPpm[i] = item.ppm
       }
 
       const option = {
@@ -270,7 +271,6 @@ export default {
     weatherGet() {
       getWeather().then(res => {
         this.weatherVal = res.data.data.forecast[0].type
-        console.log(this.weatherVal)
       })
     },
   },
@@ -279,10 +279,10 @@ export default {
     this.query()
     this.timer = setInterval(() => {
       setTimeout(this.query, 0)
-    }, 1000 * 10)
+    }, 1000 * 60)
     this.timer = setInterval(() => {
       setTimeout(this.weatherGet, 0)
-    }, 1000 * 10)
+    }, 1000 * 60)
   },
   beforeDestroy() {
     clearInterval(this.timer);
