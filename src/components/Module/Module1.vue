@@ -1,123 +1,404 @@
 <template>
-  <v-container>
-    <v-card
-        class="Module1"
-        style="border-radius: 50px"
-    >
-      <v-row>
-        <v-col
-            cols="12"
-            sm="1"
-        ></v-col>
-        <v-col
-            cols="12"
-            sm="3"
+  <v-card
+      style="border-radius: 50px; width: 2000px"
+  >
+    <v-row>
+      <v-col
+          cols="12"
+          sm="1"
+      ></v-col>
+      <v-col
+          cols="12"
+          sm="3"
+      >
+        <v-menu
+            ref="menu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
         >
-          <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="date"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+                class="picker"
+                label="Date:"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                outlined
+            ></v-text-field>
+          </template>
+          <v-date-picker
+              no-title
+              scrollable
           >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                  class="picker"
-                  v-model="date"
-                  label="Date:"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  outlined
-              ></v-text-field>
-            </template>
-            <v-date-picker
-                v-model="date"
-                no-title
-                scrollable
+            <v-spacer></v-spacer>
+            <v-btn
+                text
+                color="primary"
             >
-              <v-spacer></v-spacer>
-              <v-btn
-                  text
-                  color="primary"
-                  @click="menu = false"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.menu.save(date)"
-              >
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-col>
-        <v-col
-            cols:="12"
-            sm="3"
+              Cancel
+            </v-btn>
+            <v-btn
+                text
+                color="primary"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+      </v-col>
+      <v-col
+          cols:="12"
+          sm="3"
+      >
+        <v-select
+            label="Area:"
+            outlined
         >
-          <v-select
-              label="Area:"
-              outlined
-          >
-          </v-select>
-        </v-col>
-        <v-col
-            cols="12"
-            sm="3"
+        </v-select>
+      </v-col>
+      <v-col
+          cols="12"
+          sm="3"
+      >
+        <v-text-field
+            label="ID:"
+            v-model="searchKey"
+            outlined
         >
-          <v-text-field
-              label="ID:"
-              outlined
+        </v-text-field>
+      </v-col>
+      <v-col>
+        <v-btn style="background-color: #17ACA3; color: white; width: 100px; height: 40px; margin-top: 8px"
+               @click="query">
+          QUERY
+        </v-btn>
+      </v-col>
+    </v-row>
+    <!--        <line-chart2></line-chart2>-->
+    <!--        <line-chart3></line-chart3>-->
+    <v-row>
+      <v-col>
+        <v-container>
+          <v-card class="lineChart1"
+                  style="border-radius: 50px"
           >
-          </v-text-field>
-        </v-col>
-        <v-col>
-          <v-btn style="background-color: #17ACA3; color: white; width: 100px; height: 40px; margin-top: 8px">
-            QUERY
-          </v-btn>
-        </v-col>
-      </v-row>
-      <!--        <line-chart2></line-chart2>-->
-      <!--        <line-chart3></line-chart3>-->
-      <v-row>
-        <v-col>
-          <v-container>
-            <line-chart1></line-chart1>
-          </v-container>
-        </v-col>
-        <v-col>
-          <v-container>
-            <line-chart2></line-chart2>
-            <line-chart3></line-chart3>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-container>
+            <v-row>
+              <v-container id="linear1" style="margin: 29px auto">
+                <div id="chart"></div>
+              </v-container>
+            </v-row>
+          </v-card>
+        </v-container>
+      </v-col>
+      <v-col>
+        <v-container>
+          <v-card class="lineChart2"
+                  v-bind:style="{background: this.weather.color}"
+          >
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="3"
+              >
+                <v-container>
+          <span id="temp">{{ this.temp }}
+            <span style="font-size: 10px">˚C</span>
+
+          </span>
+                </v-container>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+              >
+                <v-container>
+                  <v-row>
+                    <v-container>
+                      <v-row>
+                        <v-col>
+                          <span class="title2">Air Quality</span>
+                        </v-col>
+                        <v-col>
+                          <v-card id="airQ" align="center" v-if="this.ppm<=450">
+                            <span class="qLevel">BEST</span>
+                          </v-card>
+                          <v-card id="airQ2" align="center" v-else>
+                            <span class="qLevel">BAD</span>
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-row>
+                  <v-row>
+                    <v-container>
+                      <v-row>
+                        <v-col>
+                          <span class="title2">Humidity</span>
+                        </v-col>
+                        <v-col>
+                          <v-card id="humL" align="left" v-bind:style="{width: this.humWidth}">
+                            <span id="hLevel">{{ this.hum }}%</span>
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-row>
+                </v-container>
+              </v-col>
+              <v-col align-self="center">
+                <v-img src="@/assets/images/Home/Sun.png" style="width: 88px; height: 68px"
+                       v-if="this.weatherVal==='多云'"></v-img>
+                <v-img src="@/assets/images/Home/rain.png" style="width: 90px; height: 88px" v-else></v-img>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card class="lineChart3"
+                  style="border-radius: 50px"
+          >
+
+          </v-card>
+        </v-container>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
-import LineChart1 from "../lineChart/LineChart1";
-import LineChart2 from '../lineChart/LineChart2'
-import LineChart3 from '../lineChart/LineChart3'
+import * as echarts from 'echarts';
+import {getList, getWeather} from "../../api/homeAPI";
+
 
 export default {
   name: "Module1",
   data() {
-    return {}
+    return {
+      searchKey: "",
+      URL: "/generator/sensordatatest/list",
+      temp: 0,
+      hum: 0,
+      ppm: 0,
+      dataNow: {},
+      timer: null,
+      weatherVal: '',
+      sensorData: [],
+    }
   },
-  components: {
-    LineChart1,
-    LineChart2,
-    LineChart3
-  }
+  computed: {
+    humWidth: function () {
+      const width = (this.hum / 100) * 105
+      console.log(width + "px")
+      return width + "px"
+    },
+    weather: function () {
+      const weatherCom = {
+        color: 'linear-gradient(180deg, #F1F1B8 0%, rgba(255, 255, 255, 0) 100%)',
+        src: '@/assets/images/Home/Sun.png'
+      }
+      if (this.weatherVal === '多云') {
+        weatherCom.color = 'linear-gradient(180deg, #F1F1B8 0%, rgba(255, 255, 255, 0) 100%)'
+        weatherCom.src = '@/assets/images/Home/Sun.png'
+      } else {
+        weatherCom.color = 'linear-gradient(180deg, #569AFF 0%, rgba(255, 255, 255, 0) 100%)'
+        weatherCom.src = '@/assets/images/Home/rain.png'
+      }
+      return weatherCom
+    }
+  },
+  methods: {
+    query() {
+      getList('GET', this.URL).then(res => {
+        this.sensorData = res.data.page.list
+        this.dataNow = res.data.page.list.pop()
+        this.temp = this.dataNow.temperature
+        this.hum = this.dataNow.humidity
+        this.ppm = this.dataNow.ppm
+        console.log(this.dataNow)
+        this.init(res.data.page.list.slice(-7))
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    init(data) {
+      let xAxisData = []
+      let seriesTemp = []
+      let seriesHum = []
+      let seriesPpm = []
+      for (let i = data.length - 1; i >= 0; i--) {
+        let item = data.pop()
+        xAxisData[i] = item.captureDataTime
+        seriesTemp[i] = (item.temperature)
+        seriesHum[i] = (item.humidity)
+        seriesPpm[i] = (item.ppm)
+      }
+
+      const option = {
+        title: {
+          text: 'Real Time Sensor Data Display',
+          x: 'center'
+        },
+        tooltip: {},
+        xAxis: {
+          type: 'category',
+          data: xAxisData
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Temperature',
+            data: seriesTemp,
+            type: 'bar'
+          },
+          {
+            name: 'Humidity',
+            data: seriesHum,
+            type: 'bar'
+          },
+          {
+            name: 'CO2',
+            data: seriesPpm,
+            type: 'bar'
+          }
+        ]
+      }
+      var myChart = echarts.init(document.getElementById('chart'));
+      myChart.setOption(option);
+    },
+    weatherGet() {
+      getWeather().then(res => {
+        this.weatherVal = res.data.data.forecast[0].type
+        console.log(this.weatherVal)
+      })
+    },
+  },
+  mounted() {
+    this.weatherGet()
+    this.query()
+    this.timer = setInterval(() => {
+      setTimeout(this.query, 0)
+    }, 1000 * 10)
+    this.timer = setInterval(() => {
+      setTimeout(this.weatherGet, 0)
+    }, 1000 * 10)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+    this.timer = null;
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.lineChart1 {
+  background: linear-gradient(180deg, #B8F1CC 0%, rgba(184, 241, 204, 0) 100%);
+  height: 392px;
+  min-width: 252px;
+}
+
+#title {
+  margin-top: 23.81px;
+  margin-left: 31.7px;
+  font-family: Alibaba PuHuiTi;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+#linechart1 {
+  margin: 14.28px auto;
+  width: 85%;
+  height: 286.23px;
+}
+
+#chart {
+  width: 100%;
+  height: 300px;
+}
+
+.lineChart2 {
+  min-width: 539px;
+  height: 135px;
+  border-radius: 50px
+}
+
+#temp {
+  margin-left: 10px;
+  font-family: Alibaba PuHuiTi;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 66px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.title2 {
+  height: 16px;
+  width: 80px;
+}
+
+#airQ {
+  height: 26px;
+  width: 105px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+  background: linear-gradient(90deg, #17ACA3 0%, rgba(196, 196, 196, 0) 182.86%);
+}
+
+#airQ2 {
+  height: 26px;
+  width: 105px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+  background: linear-gradient(90deg, tomato 0%, rgba(196, 196, 196, 0) 182.86%);
+}
+
+.qLevel {
+  height: 26px;
+  width: 39px;
+  color: white;
+  font-family: Alibaba PuHuiTi;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
+
+}
+
+#humL {
+  height: 26px;
+  width: 105px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+  background-color: #f1f1f1;
+}
+
+#hLevel {
+  display: block;
+  color: white;
+  height: 26px;
+  background-color: #1989FA;
+  font-family: Alibaba PuHuiTi;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: center;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
+}
+
+.lineChart3 {
+  background: linear-gradient(180deg, #B8F1ED 0%, rgba(184, 241, 204, 0) 100%);
+  margin-top: 13px;
+  height: 243px;
+}
 </style>

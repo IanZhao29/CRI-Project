@@ -1,20 +1,19 @@
 <template>
   <v-container id="composition">
     <v-card>
-      <span></span>
     </v-card>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "Module3"
+  name: "Module3",
 }
 </script>
 
 <style scoped>
   #composition {
-    width: 382px;
+    width: 100%;
     height: 430px;
 
     background: #FFFFFF;

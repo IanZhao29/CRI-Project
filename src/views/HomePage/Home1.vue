@@ -37,13 +37,20 @@ export default {
     return {
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menu: false,
+      baseURL: "http://8.141.56.170:8082",
+      listURL: "/generator/sensordatatest/list"
     }
   },
   components: {
     Module1,
     Module2,
     Module3,
-  }
+  },
+  methods: {
+    getList() {
+
+    }
+  },
 }
 </script>
 

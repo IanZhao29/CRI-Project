@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <v-app>
     
 <!--    <left_side></left_side>-->
     <keep-alive :include="cachedViews">
       <router-view :key="key" />
     </keep-alive>
 <!--    <Home1></Home1>-->
-  </div>
+  </v-app>
 </template>
 
 <script>
