@@ -1,7 +1,12 @@
 <template>
+<<<<<<< HEAD
   <v-app>
     
 <!--    <left_side></left_side>-->
+=======
+  <div id="app">
+
+>>>>>>> 1664dcaf8e71979f1710b6016141ddc754f8709b
     <keep-alive :include="cachedViews">
       <router-view :key="key" />
     </keep-alive>
@@ -10,12 +15,10 @@
 </template>
 
 <script>
-// import left_side from "@/components/lest_side/left_side";
 
 export default {
   name: 'App',
   components: {
-    // left_side
   },
   computed: {
     cachedViews() {

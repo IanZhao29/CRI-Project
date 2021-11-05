@@ -78,9 +78,9 @@ export default {
   data() {
     return {
       logo: require("../assets/images/homepage_bg/logo_white.png"),
-      houseActive: require("../assets/images/homepage_bg/house_active/house_active_0.png"),
-      houseActiveBg: require("../assets/images/homepage_bg/house_active/house_active_bg.png"),
-      houseDefault: require("../assets/images/homepage_bg/house_default/house_defalut_0.png")
+      houseActive: require("../assets/images/homepage_bg/nav_active/house_active_0.png"),
+      houseActiveBg: require("../assets/images/homepage_bg/nav_active/house_active_bg.png"),
+      houseDefault: require("../assets/images/homepage_bg/nav_default/house_default_0.png")
     }
   }
 }
