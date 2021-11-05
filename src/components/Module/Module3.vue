@@ -31,7 +31,7 @@ export default {
       let SO2 = data.so2.v
        const option= {
          title: {
-           text: 'Real Time Sensor Data Display',
+           text: 'Air Composition',
            left: 'center'
          },
          tooltip: {
@@ -49,7 +49,7 @@ export default {
          },
          series: [
            {
-             name: 'Pollution Kinds',
+             name: 'Pollution Source:',
              type: 'pie',
              radius: '55%',
              center: ['40%', '50%'],

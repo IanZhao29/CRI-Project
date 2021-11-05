@@ -13,38 +13,27 @@
       >
         <v-menu
             ref="menu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
+            :close-on-content-click="true"
             min-width="auto"
+            offset-y
+            transition="scale-transition"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
+                v-model="date"
                 class="picker"
                 label="Date:"
+                outlined
                 readonly
                 v-bind="attrs"
                 v-on="on"
-                outlined
             ></v-text-field>
           </template>
           <v-date-picker
+              v-model="date"
               no-title
               scrollable
           >
-            <v-spacer></v-spacer>
-            <v-btn
-                text
-                color="primary"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-                text
-                color="primary"
-            >
-              OK
-            </v-btn>
           </v-date-picker>
         </v-menu>
       </v-col>
@@ -63,8 +52,8 @@
           sm="3"
       >
         <v-text-field
-            label="ID:"
             v-model="searchKey"
+            label="ID:"
             outlined
         >
         </v-text-field>
@@ -122,10 +111,10 @@
                           <span class="title2">Air Quality</span>
                         </v-col>
                         <v-col>
-                          <v-card id="airQ" align="center" v-if="this.ppm<=450">
+                          <v-card v-if="this.ppm<500" id="airQ" align="center">
                             <span class="qLevel">BEST</span>
                           </v-card>
-                          <v-card id="airQ2" align="center" v-else>
+                          <v-card v-else id="airQ2" align="center">
                             <span class="qLevel">BAD</span>
                           </v-card>
                         </v-col>
@@ -149,17 +138,15 @@
                 </v-container>
               </v-col>
               <v-col align-self="center">
-                <v-img src="@/assets/images/Home/Sun.png" style="width: 88px; height: 68px"
-                       v-if="this.weatherVal==='多云'"></v-img>
-                <v-img src="@/assets/images/Home/rain.png" style="width: 90px; height: 88px" v-else></v-img>
+                <v-img v-if="this.weatherVal==='多云' || this.weatherVal==='晴'" src="@/assets/images/Home/Sun.png"
+                       style="width: 88px; height: 68px"></v-img>
+                <v-img v-else src="@/assets/images/Home/rain.png" style="width: 90px; height: 88px"></v-img>
               </v-col>
             </v-row>
           </v-card>
-          <v-card class="lineChart3"
-                  style="border-radius: 50px"
-          >
-
-          </v-card>
+          <v-container class="lineChart3" style="border-radius: 50px">
+            <div id="forecastChart" style="margin-top: 20px"></div>
+          </v-container>
         </v-container>
       </v-col>
     </v-row>
@@ -180,11 +167,13 @@ export default {
       temp: 0,
       hum: 0,
       ppm: 0,
+      date: '',
+      picker: '',
       dataNow: {},
       timer: null,
       weatherVal: '',
       sensorData: [],
-      page: 1592,
+      page: 1
     }
   },
   computed: {
@@ -197,7 +186,7 @@ export default {
         color: 'linear-gradient(180deg, #F1F1B8 0%, rgba(255, 255, 255, 0) 100%)',
         src: '@/assets/images/Home/Sun.png'
       }
-      if (this.weatherVal === '多云') {
+      if (this.weatherVal === '多云' || this.weatherVal === '晴') {
         weatherCom.color = 'linear-gradient(180deg, #F1F1B8 0%, rgba(255, 255, 255, 0) 100%)'
         weatherCom.src = '@/assets/images/Home/Sun.png'
       } else {
@@ -209,26 +198,28 @@ export default {
   },
   methods: {
     query() {
-      getList('GET', this.URL+this.page).then(res => {
+      getList('GET', this.URL + this.page).then(res => {
+        this.page = res.data.pages
+        console.log(this.page)
         console.log(res)
-        this.sensorData = res.data.page.list
-        this.dataNow = res.data.page.list.pop()
+        this.sensorData = res.data.records
+        this.dataNow = res.data.records.pop()
         this.temp = this.dataNow.temperature
         this.hum = this.dataNow.humidity
         this.ppm = this.dataNow.ppm
-        this.init(res.data.page.list.slice(-7))
+        this.initBarChart(res.data.records)
       }).catch(err => {
         console.log(err)
       })
     },
-    init(data) {
+    initBarChart(data) {
       let xAxisData = []
       let seriesTemp = []
       let seriesHum = []
       let seriesPpm = []
       for (let i = data.length - 1; i >= 0; i--) {
         let item = data.pop()
-        xAxisData[i] = item.captureDataTime.slice(11,19)
+        xAxisData[i] = item.captureDataTime.slice(11, 19)
         seriesTemp[i] = item.temperature
         seriesHum[i] = item.humidity
         seriesPpm[i] = item.ppm
@@ -268,9 +259,50 @@ export default {
       var myChart = echarts.init(document.getElementById('chart'));
       myChart.setOption(option);
     },
+    initLineChart(data) {
+      let xAxisData = []
+      let seriesHigh = []
+      let seriesLow = []
+      for (let i = 0; i < data.forecast.length; i++) {
+        xAxisData.push(data.forecast[i].date)
+        seriesHigh.push(data.forecast[i].high.slice(3, 5))
+        seriesLow.push(data.forecast[i].low.slice(3, 5))
+      }
+
+      const option = {
+        title: {
+          text: data.city + ": " + data.ganmao,
+          x: 'center'
+        },
+        tooltip: {},
+        xAxis: {
+          type: 'category',
+          data: xAxisData
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'low',
+            data: seriesLow,
+            type: 'line'
+          },
+          {
+            name: 'High',
+            data: seriesHigh,
+            type: 'line'
+          },
+        ]
+      }
+      var myChart = echarts.init(document.getElementById('forecastChart'));
+      myChart.setOption(option);
+    },
     weatherGet() {
       getWeather().then(res => {
         this.weatherVal = res.data.data.forecast[0].type
+        console.log(res.data.data)
+        this.initLineChart(res.data.data)
       })
     },
   },
@@ -279,7 +311,7 @@ export default {
     this.query()
     this.timer = setInterval(() => {
       setTimeout(this.query, 0)
-    }, 1000 * 60)
+    }, 1000 * 6)
     this.timer = setInterval(() => {
       setTimeout(this.weatherGet, 0)
     }, 1000 * 60)
@@ -318,7 +350,7 @@ export default {
 
 #chart {
   width: 100%;
-  height: 300px;
+  height: 350px;
 }
 
 .lineChart2 {
@@ -400,5 +432,11 @@ export default {
   background: linear-gradient(180deg, #B8F1ED 0%, rgba(184, 241, 204, 0) 100%);
   margin-top: 13px;
   height: 243px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+#forecastChart {
+  width: 100%;
+  height: 250px;
 }
 </style>
