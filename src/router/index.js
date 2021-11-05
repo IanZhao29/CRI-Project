@@ -25,7 +25,7 @@ const routes = [
                 component: Home1
             },
             {
-                path: '/main/control',
+                path: '/control',
                 name: 'control',
                 component: Control
             }
