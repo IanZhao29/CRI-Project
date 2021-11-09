@@ -2,33 +2,20 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import ECharts from 'vue-echarts'
-import { use } from 'echarts/core'
-import {
-  CanvasRenderer
-} from 'echarts/renderers'
-import {
-  BarChart
-} from 'echarts/charts'
-import {
-  GridComponent,
-  TooltipComponent
-} from 'echarts/components'
 
-use([
-  CanvasRenderer,
-  BarChart,
-  GridComponent,
-  TooltipComponent
-]);
-
-Vue.component('v-chart', ECharts)
 
 import VueResource from 'vue-resource'
 Vue.use(VueResource);
 
+//ElementUI
+import ElementUI from 'element-ui'
+Vue.use(ElementUI)
+
 //Echarts
+import * as echarts from 'echarts'
+
 import vuetify from './plugins/vuetify'
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 

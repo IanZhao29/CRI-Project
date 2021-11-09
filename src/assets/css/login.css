@@ -9,36 +9,34 @@
     background: url("../images/login/background.png");
 }
 
-.login-middle-cloud img {
-    position: absolute;
-    left: 40.76%;
-    right: 40.69%;
-    top: 7.23%;
-    bottom: 79.79%;
-}
-
 .login-right-cloud img {
     position: absolute;
-    left: 74.03%;
-    right: 6.32%;
-    top: 7.23%;
-    bottom: 72.95%;
+    left: 40.764%;
+    top: 7.227%;
+    width: 18%;
+}
+
+.login-left-cloud img {
+    position: absolute;
+    left: 4.44%;
+    top: 9.082%;
+    width: 19%;
 }
 
 .login-earth img {
     position: absolute;
-    left: 7.78%;
-    right: 68.82%;
-    top: 49.9%;
-    bottom: 16.5%;
+    left: 22.014%;
+    top: 51.758%;
+    width: 23.403%;
+
 }
 
 .login-welcome-text {
     position: absolute;
-    width: 40.9%;
-    height: 19.3%;
-    left: 0.625%;
-    top: 25%;
+    left: 12.917%;
+    top: 22.168%;
+    width: 40.903%;
+    height: 19.336%;
 
     font-family: Alibaba PuHuiTi, cursive;
     font-style: normal;
@@ -53,29 +51,28 @@
 
 .login-box {
     position: absolute;
-    width: 41.875%;
-    height: 50%;
-    left: 51.8%;
-    top: 37.99%;
+    width: 33.264%;
+    height: 100%;
+    left: 66.736%;
 
     background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 50px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px 0 0 50px;
 }
 
 .login-logo img {
     position: absolute;
-    width: 5%;
-    left: 70.139%;
-    top: 41.111%;
+    width: 5.278%;
+    left: 80.764%;
+    top: 20.851%;
 }
 
 .other-way-to-login {
     position: absolute;
-    left: 57.43%;
-    right: 11.88%;
-    top: 51%;
-    bottom: 43%;
+    left: 68.056%;
+    top: 37.971%;
+    width: 30.694%;
+    height: 4.638%;
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
@@ -112,10 +109,10 @@
 
 .login-button-box {
     position: absolute;
-    left: 65.83%;
-    right: 20.28%;
-    top: 85.34%;
-    bottom: 8.5%;
+    left: 76.458%;
+    top: 68.457%;
+    width: 13.889%;
+    height: 6.087%;
 }
 
 .login-button {
@@ -145,16 +142,16 @@
     top: 0%;
     bottom: 0%;
 
-    background: #0486FE;
+    background: #17ACA3;
     border-radius: 4px;
 }
 
 .login-account-box {
     position: absolute;
-    width: 32.847%;
+    width: 30%;
     height: 5.469%;
-    left: 56.319%;
-    top: 64%;
+    left: 66.944%;
+    top: 48.502%;
 }
 
 .login-account-name {
@@ -188,10 +185,10 @@
 
 .login-password-box{
     position: absolute;
-    width: 32.847%;
+    width: 30%;
     height: 5.469%;
-    left: 56.319%;
-    top: 73%;
+    left: 66.944%;
+    top:  57.198%;
 }
 
 .login-password-name{

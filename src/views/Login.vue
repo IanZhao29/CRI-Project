@@ -1,14 +1,14 @@
 <template>
   <div class="login-main">
-    <div class="login-top">
-      <div class="login-middle-cloud">
-        <img :src="middleCloud" alt="middle_cloud">
-      </div>
-      <div class="login-right-cloud">
+    <div class="login-left-top">
+      <div class="login-left-cloud">
         <img :src="rightCloud" alt="right_cloud">
       </div>
+      <div class="login-right-cloud">
+        <img :src="middleCloud" alt="middle_cloud">
+      </div>
     </div>
-    <div class="login-left">
+    <div class="login-left-bottom">
       <div class="login-welcome-text">
         {{ welcome }}
       </div>
