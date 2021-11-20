@@ -198,12 +198,10 @@ export default {
   },
   methods: {
     query() {
-      getList('GET', this.URL + this.page).then(res => {
-        this.page = res.data.pages
-        console.log(this.page)
+      getList().then(res => {
         console.log(res)
-        this.sensorData = res.data.records
-        this.dataNow = res.data.records.pop()
+        this.sensorData = res.data
+        this.dataNow = res.data
         this.temp = this.dataNow.temperature
         this.hum = this.dataNow.humidity
         this.ppm = this.dataNow.ppm
