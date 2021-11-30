@@ -172,7 +172,6 @@ export default {
       dataNow: {},
       timer: null,
       weatherVal: '',
-      sensorData: [],
       page: 1
     }
   },
@@ -199,13 +198,20 @@ export default {
   methods: {
     query() {
       getList().then(res => {
-        console.log(res)
-        this.sensorData = res.data
+        console.log(res.data)
+        var sensorData = [];
+        if(sensorData.length===7){
+          sensorData.shift();
+          sensorData.push(res.data)
+        }else {
+          sensorData.push(res.data)
+        }
+        console.log(sensorData[0])
         this.dataNow = res.data
         this.temp = this.dataNow.temperature
         this.hum = this.dataNow.humidity
         this.ppm = this.dataNow.ppm
-        this.initBarChart(res.data.records)
+        this.initBarChart(this.sensorData)
       }).catch(err => {
         console.log(err)
       })
