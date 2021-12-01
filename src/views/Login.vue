@@ -25,23 +25,21 @@
         <div class="login-Gmail-bg"></div>
         <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
-      <div class="login-input-box">
+      <div class="login-input-box" ref="loginFormRef" :rules="loginRules">
         <label for="account" class="login-account-box">
           <div class="login-account-name">Account:</div>
-          <input class="login-account-input" type="text" id="account">
+          <input class="login-account-input" type="text" id="account" v-model="loginForm.email">
         </label>
         <label for="password" class="login-password-box">
           <div class="login-password-name">Password:</div>
-          <input class="login-password-input" type="password" id="password">
+          <input class="login-password-input" type="password" id="password" v-model="loginForm.password">
         </label>
       </div>
       <div class="login-button-box" v-on:click="goToHome">
         <div class="login-button-bg"></div>
-        <div class="login-button">{{ logInButton }}</div>
+        <div class="login-button" @click="login">{{ logInButton }}</div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -56,10 +54,44 @@ export default {
       earth: require("../assets/images/login/earth.png"),
       welcome: "Welcome \n to \n Climate Response Ireland",
       gmail: "login with gmail",
-      logInButton: "log in"
+      logInButton: "log in",
+
+      loginForm: {
+        email: "",
+        password: ""
+      },
+      loginRules: {
+        email: [
+          {required: true, message: 'Enter Username', trigger: 'blur'},
+          {min: 5, max: 20, message: 'Username between 5 - 20 long', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: 'Enter Password', trigger: 'blur'},
+          {min: 6, max: 10, message: 'Username between 6 - 10 long', trigger: 'blur'}
+        ]
+      }
     }
   },
   methods: {
+    login() {
+      console.log(this.loginForm)
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return;
+        const formData = new FormData();
+        formData.append("email", this.loginForm.email)
+        formData.append("password", this.loginForm.password)
+        const {data: resultMap} = await this.$http.post("/userinfo/login", formData);//访问后台*/
+        if (resultMap.code === 200) {
+          window.sessionStorage.setItem("user", resultMap.user);//存储user对象
+          await this.$router.push({path: "/main"})//页面路由跳转
+          this.$message.success("Operation is Successful")//信息提示
+        } else {
+          this.$message.error("Operation is Failed")//错误提示
+          console.log(resultMap);
+        }
+      })
+
+    },
     goToHome() {
       this.$router.push('/main');
     }
