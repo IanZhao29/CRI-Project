@@ -35,7 +35,7 @@
           <input class="login-password-input" type="password" id="password" v-model="loginForm.password">
         </label>
       </div>
-      <div class="login-button-box" v-on:click="goToHome">
+      <div class="login-button-box">
         <div class="login-button-bg"></div>
         <div class="login-button" @click="login">{{ logInButton }}</div>
       </div>
@@ -92,9 +92,9 @@ export default {
       })
 
     },
-    goToHome() {
-      this.$router.push('/main');
-    }
+    // goToHome() {
+    //   this.$router.push('/main');
+    // }
   },
 }
 </script>
