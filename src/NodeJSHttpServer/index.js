@@ -1,5 +1,5 @@
 const amqp = require('amqplib/callback_api');
-let message = '';
+let msgStack = [];
 let url = {
     protocol: 'amqp',
     hostname: '8.141.56.170',
@@ -8,26 +8,52 @@ let url = {
     password: '123456',
     vhost: '/'
 }
-
-amqp.connect(url, (connError, connection) => {
-    console.log("正在监听队列...")
-    if (connError) {
-        throw connError;
-    }
-    connection.createChannel((channelError, channel) => {
-        if (channelError) {
-            throw channelError;
+async function do_consume() {
+    /**
+     * 1.连接mq
+     * 2.创建通道
+     * 3.声明队列
+     * 4.创建回调函数，等待消息
+     */
+    // 1.
+    amqp.connect(url, function(error0, connection) {
+        if (error0) {
+            console.log(error0);
+            return;
         }
-        const QUEUE = 'climate_dataTest_frontend_queue';
-        channel.assertQueue(QUEUE);
-        channel.consume(QUEUE, (msg) => {
-            message = msg.content
-        }, {
-            noAck: true
-        })
+        //2
+        connection.createChannel(function(error1, channel) {
+            if (error1) {
+                throw error1
+            }
+            const queue = 'climate_dataTest_frontend_queue';
 
+            channel.assertQueue(queue, {
+                durable: true
+            })
+            //关闭自动回执
+            const opt = {
+                noArk: true
+            }
+            //每次消费一个消息
+            channel.prefetch(1)
+            //消费队列
+            channel.consume(
+                queue,
+                msg => {
+                    msgStack = JSON.parse(msg.content.toString())
+                    msgStack.dateTime = new Date().toLocaleTimeString()
+                    msgStack.humidity = parseInt(msgStack.humidity);
+                    msgStack.ppm = parseFloat(msgStack.ppm.toFixed(1));
+                    msgStack.temperature = parseFloat(msgStack.temperature.toFixed(1));
+                    console.log("收到消息：", msgStack)
+                },
+                opt
+            )
+        })
     })
-});
+}
+setInterval(do_consume, 1500);
 //导入模块
 const express = require('express');
 const app = express();
@@ -38,8 +64,8 @@ app.use(cors());
 
 // eslint-disable-next-line no-unused-vars
 app.get('/amqp',(req,res,next)=>{
-    res.send(message)
-    console.log(message.toString())
+    res.send(msgStack)
+    setTimeout(()=>{}, 3000)
 });
 
 app.listen(3000,()=>{

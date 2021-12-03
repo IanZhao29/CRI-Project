@@ -94,8 +94,6 @@
               >
                 <v-container>
           <span id="temp">{{ this.temp }}
-            <span style="font-size: 10px">˚C</span>
-
           </span>
                 </v-container>
               </v-col>
@@ -129,7 +127,7 @@
                         </v-col>
                         <v-col>
                           <v-card id="humL" align="left" v-bind:style="{width: this.humWidth}">
-                            <span id="hLevel">{{ this.hum }}%</span>
+                            <span id="hLevel">{{ this.hum }}</span>
                           </v-card>
                         </v-col>
                       </v-row>
@@ -172,7 +170,8 @@ export default {
       dataNow: {},
       timer: null,
       weatherVal: '',
-      page: 1
+      page: 1,
+      sensorData:[],
     }
   },
   computed: {
@@ -198,37 +197,33 @@ export default {
   methods: {
     query() {
       getList().then(res => {
-        console.log(res.data)
-        var sensorData = [];
-        if(sensorData.length===7){
-          sensorData.shift();
-          sensorData.push(res.data)
-        }else {
-          sensorData.push(res.data)
+        this.sensorData.push(res.data)
+        if(this.sensorData.length > 7) {
+          this.sensorData.shift();
         }
-        console.log(sensorData[0])
+        console.log(this.sensorData)
         this.dataNow = res.data
         this.temp = this.dataNow.temperature
         this.hum = this.dataNow.humidity
         this.ppm = this.dataNow.ppm
-        this.initBarChart(this.sensorData)
+        this.initBarChart()
       }).catch(err => {
         console.log(err)
       })
     },
-    initBarChart(data) {
+    initBarChart() {
       let xAxisData = []
       let seriesTemp = []
       let seriesHum = []
       let seriesPpm = []
-      for (let i = data.length - 1; i >= 0; i--) {
-        let item = data.pop()
-        xAxisData[i] = item.captureDataTime.slice(11, 19)
+      for (let i = this.sensorData.length - 1; i >= 0; i--) {
+        let item = this.sensorData[i]
+        console.log(this.sensorData[i])
+        xAxisData[i] = item.dateTime
         seriesTemp[i] = item.temperature
         seriesHum[i] = item.humidity
         seriesPpm[i] = item.ppm
       }
-
       const option = {
         title: {
           text: 'Real Time Sensor Data Display',
@@ -366,7 +361,7 @@ export default {
 #temp {
   margin-left: 10px;
   font-family: Alibaba PuHuiTi;
-  font-size: 48px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 700;
   line-height: 66px;
