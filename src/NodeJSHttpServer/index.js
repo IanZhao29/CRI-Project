@@ -1,5 +1,6 @@
 const amqp = require('amqplib/callback_api');
 let msgStack = [];
+let boolSwitch = 1;
 let url = {
     protocol: 'amqp',
     hostname: '8.141.56.170',
@@ -24,7 +25,8 @@ async function do_consume() {
         //2
         connection.createChannel(function(error1, channel) {
             if (error1) {
-                throw error1
+                console.log(error0);
+                return;
             }
             const queue = 'climate_dataTest_frontend_queue';
 
@@ -67,6 +69,11 @@ app.get('/amqp',(req,res,next)=>{
     res.send(msgStack)
     setTimeout(()=>{}, 3000)
 });
+
+app.get('/switch', (req, res) => {
+    res.send(boolSwitch);
+    setTimeout(() => {}, 3000);
+})
 
 app.listen(3000,()=>{
     console.log('node server is running on 3000');
