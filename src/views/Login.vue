@@ -25,16 +25,16 @@
         <div class="login-Gmail-bg"></div>
         <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
-      <div class="login-input-box" ref="loginFormRef" :rules="loginRules">
-        <label for="account" class="login-account-box">
+      <el-form class="login-input-box" ref="loginFormRef" :rules="loginRules">
+        <el-form-item for="account" class="login-account-box">
           <div class="login-account-name">Account:</div>
-          <input class="login-account-input" type="text" id="account" v-model="loginForm.email">
-        </label>
-        <label for="password" class="login-password-box">
+          <el-input class="login-account-input" type="text" id="account" v-model="loginForm.email">
+        </el-form-item>
+        <el-form-item for="password" class="login-password-box">
           <div class="login-password-name">Password:</div>
-          <input class="login-password-input" type="password" id="password" v-model="loginForm.password">
-        </label>
-      </div>
+          <el-input class="login-password-input" type="password" id="password" v-model="loginForm.password">
+        </el-form-item>
+      </el-form>
       <div class="login-button-box">
         <div class="login-button-bg"></div>
         <div class="login-button" @click="login">{{ logInButton }}</div>
@@ -63,11 +63,11 @@ export default {
       loginRules: {
         email: [
           {required: true, message: 'Enter Username', trigger: 'blur'},
-          {min: 5, max: 20, message: 'Username between 5 - 20 long', trigger: 'blur'}
+          {min: 1, max: 20, message: 'Username between 1 - 20 long', trigger: 'blur'}
         ],
         password: [
           {required: true, message: 'Enter Password', trigger: 'blur'},
-          {min: 6, max: 10, message: 'Username between 6 - 10 long', trigger: 'blur'}
+          {min: 1, max: 10, message: 'Username between 1 - 10 long', trigger: 'blur'}
         ]
       }
     }
@@ -90,11 +90,7 @@ export default {
           console.log(resultMap);
         }
       })
-
-    },
-    // goToHome() {
-    //   this.$router.push('/main');
-    // }
+    }
   },
 }
 </script>

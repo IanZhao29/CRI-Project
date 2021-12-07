@@ -18,9 +18,9 @@
       <v-list-item link>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Kimi Räikkönen
+            {{ userInfo.userid }}
           </v-list-item-title>
-          <v-list-item-subtitle>Kimi_RAI07@formula1.com</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ userInfo.username }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -29,7 +29,21 @@
 
 <script>
 export default {
-  name: "UserBar"
+  name: "UserBar",
+  mounted() {
+    this.getData();
+  },
+  data() {
+    return {
+      userInfo: {},
+    }
+  },
+  methods: {
+    async getData() {
+      const {data: res} = await this.$http.get("/userinfo/save");
+      this.userInfo = res;
+    },
+  }
 }
 </script>
 
