@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 let msgStack = [];
-let boolSwitch = 1;
+let boolSwitch = "1";
 let url = {
     protocol: 'amqp',
     hostname: '8.141.56.170',
@@ -11,10 +11,10 @@ let url = {
 }
 async function do_consume() {
     /**
-     * 1.连接mq
-     * 2.创建通道
-     * 3.声明队列
-     * 4.创建回调函数，等待消息
+     * 1.connect to mq
+     * 2.create channel
+     * 3.queue
+     * 4.callbacks, waiting for message
      */
     // 1.
     amqp.connect(url, function(error0, connection) {
@@ -25,7 +25,7 @@ async function do_consume() {
         //2
         connection.createChannel(function(error1, channel) {
             if (error1) {
-                console.log(error0);
+                console.log(error1);
                 return;
             }
             const queue = 'climate_dataTest_frontend_queue';
@@ -69,6 +69,16 @@ app.get('/amqp',(req,res,next)=>{
     res.send(msgStack)
     setTimeout(()=>{}, 3000)
 });
+
+app.get('/switchC', (req, res) => {
+    if(boolSwitch === "1") {
+        boolSwitch = "0";
+    }else {
+        boolSwitch = "1";
+    }
+    res.send(boolSwitch)
+    setTimeout(() => {}, 3000);
+})
 
 app.get('/switch', (req, res) => {
     res.send(boolSwitch);

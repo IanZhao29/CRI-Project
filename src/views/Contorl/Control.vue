@@ -1,14 +1,20 @@
 <template>
-  <v-data-table
-      :headers="headers"
-      :items="sensorTable"
-      :items-per-page="10"
-      class="elevation-1"
-  ></v-data-table>
+  <div>
+    <v-data-table
+        :headers="headers"
+        :items="sensorTable"
+        :items-per-page="10"
+        class="elevation-1"
+    >
+    </v-data-table>
+    <v-btn @click="changeSensorState(1)">
+      OPEN/CLOSE
+    </v-btn>
+  </div>
 </template>
 
 <script>
-import {getList} from "../../api/homeAPI";
+import {getList, changeState} from "../../api/homeAPI";
 
 export default {
   name: "Control",
@@ -16,7 +22,7 @@ export default {
     return {
       headers: [
         {text: 'Device Name', value:'processorCode'},
-        {text: 'Update Time', value:'captureDataTime'},
+        {text: 'Update Time', value:'dateTime'},
         {text: 'Temp(˚C)', value:'temperature'},
         {text: 'CO2(ppm)', value:'ppm'},
         {text: 'Humidity(%)', value:'humidity'},
@@ -28,11 +34,17 @@ export default {
   },
   methods: {
     query() {
-      getList('GET', this.URL+this.page).then(res => {
-        this.page = res.data.pages
-        console.log(this.page)
+      getList().then(res => {
+        // this.sensorTable[parseInt(res.data.processorCode)-1] = res.data;
+        this.sensorTable.pop()
+        this.sensorTable.push(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    changeSensorState() {
+      changeState().then(res => {
         console.log(res)
-        this.sensorTable = res.data.records
       }).catch(err => {
         console.log(err)
       })
@@ -40,6 +52,7 @@ export default {
   },
   mounted() {
     this.query()
+    this.changeSensorState()
     this.timer = setInterval(() => {
       setTimeout(this.query, 0)
     }, 1000 * 10)
