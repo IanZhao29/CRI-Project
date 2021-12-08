@@ -25,14 +25,12 @@
         <div class="login-Gmail-bg"></div>
         <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
-      <el-form class="login-input-box" ref="loginFormRef" :rules="loginRules">
-        <el-form-item for="account" class="login-account-box">
-          <div class="login-account-name">Account:</div>
-          <el-input class="login-account-input" type="text" id="account" v-model="loginForm.email">
+      <el-form class="login-input-box" :model="loginForm" ref="loginFormRef" :rules="loginRules" label-width="80px">
+        <el-form-item label="Account:" class="login-account-box" prop="email">
+          <el-input type="text" id="account" v-model="loginForm.email"/>
         </el-form-item>
-        <el-form-item for="password" class="login-password-box">
-          <div class="login-password-name">Password:</div>
-          <el-input class="login-password-input" type="password" id="password" v-model="loginForm.password">
+        <el-form-item label="Password:" class="login-password-box" prop="password">
+          <el-input type="password" id="password" v-model="loginForm.password"/>
         </el-form-item>
       </el-form>
       <div class="login-button-box">

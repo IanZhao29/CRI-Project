@@ -30,7 +30,7 @@
 <script>
 export default {
   name: "UserBar",
-  mounted() {
+  created() {
     this.getData();
   },
   data() {
