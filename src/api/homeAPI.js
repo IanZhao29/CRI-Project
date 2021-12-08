@@ -3,11 +3,11 @@ import axios from "axios";
 const weatherURL = 'https://wthrcdn.etouch.cn/weather_mini?citykey=101230101'
 
 export const getList = () => {
-    return axios.get('https://39.107.142.175:3000/amqp', {})
+    return axios.get('http://39.107.142.175:3000/amqp', {})
 }
 
 export const changeState = () => {
-    return axios.get('https://39.107.142.175:3000/switchC', {})
+    return axios.get('http://39.107.142.175:3000/switchC', {})
 }
 
 export const getWeather = () => {
