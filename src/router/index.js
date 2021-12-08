@@ -11,13 +11,19 @@ const routes = [
     {
         path: '/',
         name: 'Login',
-        component: Login
+        component: Login,
+        meta: {
+            isLogin : false
+        }
     },
     {
         path: '/main',
         name: 'main',
         component: Layout,
         redirect: '/main/home',
+        meta: {
+            isLogin : true
+        },
         children: [
             {
                 path: '/main/home',
