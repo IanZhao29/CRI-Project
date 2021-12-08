@@ -9,37 +9,31 @@ let url = {
     password: '123456',
     vhost: '/'
 }
-async function do_consume() {
-    /**
-     * 1.connect to mq
-     * 2.create channel
-     * 3.queue
-     * 4.callbacks, waiting for message
-     */
-    // 1.
-    amqp.connect(url, function(error0, connection) {
-        if (error0) {
-            console.log(error0);
+
+amqp.connect(url, function(error0, connection) {
+    if (error0) {
+        console.log(error0);
+        return;
+    }
+    //2
+    connection.createChannel(function(error1, channel) {
+        if (error1) {
+            console.log(error1);
             return;
         }
-        //2
-        connection.createChannel(function(error1, channel) {
-            if (error1) {
-                console.log(error1);
-                return;
-            }
-            const queue = 'climate_dataTest_frontend_queue';
+        const queue = 'climate_dataTest_frontend_queue';
 
-            channel.assertQueue(queue, {
-                durable: true
-            })
-            //关闭自动回执
-            const opt = {
-                noArk: true
-            }
-            //每次消费一个消息
-            channel.prefetch(1)
-            //消费队列
+        channel.assertQueue(queue, {
+            durable: true
+        })
+        //关闭自动回执
+        const opt = {
+            noArk: false
+        }
+        //每次消费一个消息
+        channel.prefetch(10)
+        //消费队列
+        setInterval(()=>{
             channel.consume(
                 queue,
                 msg => {
@@ -52,10 +46,10 @@ async function do_consume() {
                 },
                 opt
             )
-        })
+        }, 2000)
     })
-}
-setInterval(do_consume, 1500);
+})
+
 //导入模块
 const express = require('express');
 const app = express();
