@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import message from "./modules/message";
+
 export default new Vuex.Store({
     state: {
         isLogin: false,
@@ -21,5 +23,6 @@ export default new Vuex.Store({
         },
     },
     modules: {
-    }
+        message,
+    },
 })
