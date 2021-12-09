@@ -37,6 +37,17 @@ export default {
     };
   },
 
+  created: function () {
+    if (!this.$route.matched.length) {
+      this.$router.push("/");
+    }
+    let getFlag = localStorage.getItem("Flag");
+    let getid = localStorage.getItem("Userid");
+    if ((getid===null||getFlag !== "isLogin") && this.$route.path !== '/') {
+      this.$router.push("/");
+    }
+  },
+
   mounted() {
 
   },

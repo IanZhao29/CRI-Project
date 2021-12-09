@@ -26,8 +26,8 @@
         <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
       <el-form class="login-input-box" :model="loginForm" ref="loginFormRef" :rules="loginRules" label-width="80px">
-        <el-form-item label="Account:" class="login-account-box" prop="email">
-          <el-input type="text" id="account" v-model="loginForm.email"/>
+        <el-form-item label="Account:" class="login-account-box" prop="username">
+          <el-input type="text" id="account" v-model="loginForm.username"/>
         </el-form-item>
         <el-form-item label="Password:" class="login-password-box" prop="password">
           <el-input type="password" id="password" v-model="loginForm.password"/>
@@ -55,11 +55,11 @@ export default {
       logInButton: "log in",
 
       loginForm: {
-        email: "",
+        username: "",
         password: ""
       },
       loginRules: {
-        email: [
+        username: [
           {required: true, message: 'Enter Username', trigger: 'blur'},
           {min: 1, max: 20, message: 'Username between 1 - 20 long', trigger: 'blur'}
         ],
@@ -72,21 +72,19 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.loginForm)
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
-        const formData = new FormData();
-        formData.append("email", this.loginForm.email)
-        formData.append("password", this.loginForm.password)
-        const {data: resultMap} = await this.$http.post("/userinfo/login", formData);//访问后台*/
-        if (resultMap.code === 200) {
-          window.sessionStorage.setItem("user", resultMap.user);//存储user对象
-          await this.$router.push({path: "/main"})//页面路由跳转
-          this.$message.success("Operation is Successful")//信息提示
-        } else {
-          this.$message.error("Operation is Failed")//错误提示
-          console.log(resultMap);
-        }
+        var that = this;
+        this.$axios.post("/userinfo/login", this.loginForm)
+            .then(data => {
+              if (data.data.status !== 200) {
+                that.$Message.error("Operation is Failed");
+              } else {
+                that.$store.dispatch("userLogin", true);
+                localStorage.setItem("Flag", "isLogin");
+                that.$router.push("/main");
+              }
+            });
       })
     }
   },
