@@ -33,20 +33,19 @@ amqp.connect(url, function(error0, connection) {
         //每次消费一个消息
         channel.prefetch(10)
         //消费队列
-        setInterval(()=>{
-            channel.consume(
-                queue,
-                msg => {
-                    msgStack = JSON.parse(msg.content.toString())
-                    msgStack.dateTime = new Date().toLocaleTimeString()
-                    msgStack.humidity = parseInt(msgStack.humidity);
-                    msgStack.ppm = parseFloat(msgStack.ppm.toFixed(1));
-                    msgStack.temperature = parseFloat(msgStack.temperature.toFixed(1));
-                    console.log("收到消息：", msgStack)
-                },
-                opt
-            )
-        }, 2000)
+        channel.consume(
+            queue,
+            msg => {
+                msgStack = JSON.parse(msg.content.toString())
+                msgStack.dateTime = new Date().toLocaleTimeString()
+                msgStack.humidity = parseInt(msgStack.humidity);
+                msgStack.ppm = parseFloat(msgStack.ppm.toFixed(1));
+                msgStack.temperature = parseFloat(msgStack.temperature.toFixed(1));
+                console.log("收到消息：", msgStack)
+                channel.ack(msg);
+            },
+            opt
+        )
     })
 })
 
