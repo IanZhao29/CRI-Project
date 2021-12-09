@@ -26,8 +26,8 @@
         <div class="login-Gmail-button">{{ gmail }}</div>
       </div>
       <el-form class="login-input-box" :model="loginForm" ref="loginFormRef" :rules="loginRules" label-width="80px">
-        <el-form-item label="Account:" class="login-account-box" prop="email">
-          <el-input type="text" id="account" v-model="loginForm.email"/>
+        <el-form-item label="Account:" class="login-account-box" prop="username">
+          <el-input type="text" id="account" v-model="loginForm.username"/>
         </el-form-item>
         <el-form-item label="Password:" class="login-password-box" prop="password">
           <el-input type="password" id="password" v-model="loginForm.password"/>
@@ -55,11 +55,11 @@ export default {
       logInButton: "log in",
 
       loginForm: {
-        email: "",
+        username: "",
         password: ""
       },
       loginRules: {
-        email: [
+        username: [
           {required: true, message: 'Enter Username', trigger: 'blur'},
           {min: 1, max: 20, message: 'Username between 1 - 20 long', trigger: 'blur'}
         ],
