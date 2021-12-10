@@ -33,15 +33,14 @@
           <el-input type="password" id="password" v-model="loginForm.password"/>
         </el-form-item>
       </el-form>
-      <div class="login-button-box">
-        <div class="login-button-bg"></div>
-        <div class="login-button" @click="login">{{ logInButton }}</div>
-      </div>
+      <button class="login-button" @click="login">{{ logInButton }}</button>
     </div>
   </div>
 </template>
 
 <script>
+import {postLoginForm} from "../api/homeAPI";
+
 export default {
   name: "Login",
   data() {
@@ -75,16 +74,18 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
         var that = this;
-        this.$axios.post("/userinfo/login", this.loginForm)
-            .then(data => {
-              if (data.data.status !== 200) {
-                that.$Message.error("Operation is Failed");
-              } else {
-                that.$store.dispatch("userLogin", true);
-                localStorage.setItem("Flag", "isLogin");
-                that.$router.push("/main");
-              }
-            });
+        const formData = new FormData();
+        formData.append("email", this.loginForm.email)
+        formData.append("password", this.loginForm.password)
+        postLoginForm('POST', formData).then(data => {
+          if (data.data.status !== 200) {
+            that.$Message.error("Operation is Failed");
+          } else {
+            that.$store.dispatch("userLogin", true);
+            localStorage.setItem("Flag", "isLogin");
+            that.$router.push("/main");
+          }
+        });
       })
     }
   },
