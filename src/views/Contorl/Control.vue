@@ -6,15 +6,18 @@
         :items-per-page="10"
         class="elevation-1"
     >
+      <template v-slot:item.switch>
+        <v-switch
+            v-model="switchState"
+            @click="changeSensorState"
+        ></v-switch>
+      </template>
     </v-data-table>
-    <v-btn @click="changeSensorState(1)">
-      OPEN/CLOSE
-    </v-btn>
   </div>
 </template>
 
 <script>
-import {getList, changeState} from "../../api/homeAPI";
+import {getList, changeState, getState} from "../../api/homeAPI";
 
 export default {
   name: "Control",
@@ -26,10 +29,10 @@ export default {
         {text: 'Temp(˚C)', value:'temperature'},
         {text: 'CO2(ppm)', value:'ppm'},
         {text: 'Humidity(%)', value:'humidity'},
+        {text: 'Switch', value: 'switch', sortable: false},
       ],
       sensorTable:[],
-      page: 1,
-      URL: "/generator/sensordatatest/testInfo/",
+      switchState: true,
     }
   },
   methods: {
@@ -45,14 +48,35 @@ export default {
     changeSensorState() {
       changeState().then(res => {
         console.log(res)
+        if(res.data === 1) {
+          this.$store.dispatch("message/openSnackbar", {
+            msg: "Sensor Engaged Success!",
+            color: "success",
+          })
+        }else {
+          this.$store.dispatch("message/openSnackbar", {
+            msg: "You Close the Sensor!",
+            color: "error",
+          })
+        }
       }).catch(err => {
         console.log(err)
       })
-    }
+    },
+
   },
   mounted() {
     this.query()
-    this.changeSensorState()
+    getState().then(res => {
+      let data = res.data;
+      if(data === 1) {
+        this.switchState = true;
+      }else {
+        this.switchState = false;
+      }
+    }).catch(err => {
+      console.log(err);
+    })
     this.timer = setInterval(() => {
       setTimeout(this.query, 0)
     }, 1000 * 10)

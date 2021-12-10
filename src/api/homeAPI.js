@@ -10,6 +10,10 @@ export const changeState = () => {
     return axios.get('http://39.107.142.175:3000/switchC', {})
 }
 
+export const getState = () => {
+    return axios.get('http://39.107.142.175:3000/switch', {});
+}
+
 export const getWeather = () => {
     return axios.get(weatherURL)
 }
