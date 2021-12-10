@@ -117,10 +117,13 @@
 
 .login-button {
     position: absolute;
-    height: 33px;
-    left: 26%;
-    right: 25.58%;
-    top: calc(50% - 33px / 2);
+    left: 76.458%;
+    top: 68.457%;
+    width: 13.889%;
+    height: 6.087%;
+
+    background: #17ACA3;
+    border-radius: 4px;
 
     font-family: Alibaba PuHuiTi, cursive;
     font-style: normal;
@@ -135,15 +138,8 @@
     color: #FFFFFF;
 }
 
-.login-button-bg {
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-
-    background: #17ACA3;
-    border-radius: 4px;
+.login-button:hover{
+    background: #148f88;
 }
 
 .login-account-box {
