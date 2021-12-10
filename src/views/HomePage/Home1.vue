@@ -46,10 +46,9 @@ export default {
     Module2,
     Module3,
   },
+  mounted() {
+  },
   methods: {
-    getList() {
-
-    }
   },
 }
 </script>
