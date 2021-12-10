@@ -1,5 +1,5 @@
 <template>
-  <div class="login-main">
+  <v-app class="login-main teal accent-4">
     <div class="login-left-top">
       <div class="login-left-cloud">
         <img :src="rightCloud" alt="right_cloud">
@@ -35,14 +35,19 @@
       </el-form>
       <button class="login-button" @click="login">{{ logInButton }}</button>
     </div>
-  </div>
+    <register/>
+  </v-app>
 </template>
 
 <script>
 import {postLoginForm} from "../api/homeAPI";
+import Register from "../components/Register";
 
 export default {
   name: "Login",
+  components: {
+    Register
+  },
   data() {
     return {
       middleCloud: require("../assets/images/login/middle_cloud.png"),
@@ -52,7 +57,6 @@ export default {
       welcome: "Welcome \n to \n Climate Response Ireland",
       gmail: "login with gmail",
       logInButton: "log in",
-
       loginForm: {
         username: "",
         password: ""
@@ -87,7 +91,7 @@ export default {
           }
         });
       })
-    }
+    },
   },
 }
 </script>
