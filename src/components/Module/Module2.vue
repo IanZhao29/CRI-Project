@@ -1,21 +1,42 @@
 <template>
-  <v-container id="map">
-  </v-container>
+  <div class="container">
+    <el-amap
+        class="amap-box"
+        :vid="'amap-vue'"
+        :center="center"
+    >
+      <el-amap-marker v-for="(marker,index) in markers" :key="index" :position="marker.position">
+      </el-amap-marker>
+    </el-amap>
+  </div>
 </template>
 
 <script>
+
 export default {
-  name: "Module2"
+  name: "Module2",
+  data() {
+    return {
+      center: [113.203, 25.2042],
+      markers:[],
+    }
+  },
+  mounted() {
+    this.markers = [
+      {
+        position: [113.203, 25.2042]
+      },
+    ];
+  },
+  methods: {
+  }
 }
 </script>
 
 <style scoped>
- #map {
-   width: 100%;
-   height: 430px;
-
-   background: linear-gradient(180deg, #b7d28d 0%, rgba(184, 241, 204, 0) 100%);
-   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-   border-radius: 50px;
- }
+.amap-box {
+  width: 100%;
+  height: 400px;
+  margin: 10px auto;
+}
 </style>

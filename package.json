@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@mdi/font": "^6.4.95",
     "amqplib": "^0.8.0",
     "axios": "^0.24.0",
@@ -20,6 +21,7 @@
     "express-ws": "^5.0.2",
     "nodemon": "^2.0.15",
     "vue": "^2.6.11",
+    "vue-amap": "^0.5.10",
     "vue-axios": "^3.3.7",
     "vue-echarts": "^6.0.0",
     "vue-resource": "^1.5.3",

@@ -21,7 +21,7 @@ amqp.connect(url, function(error0, connection) {
             console.log(error1);
             return;
         }
-        const queue = 'climate_dataTest_frontend_queue';
+        const queue = 'climate_data_frontend_queue';
 
         channel.assertQueue(queue, {
             durable: true
