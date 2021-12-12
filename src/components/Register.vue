@@ -20,7 +20,7 @@
         </el-form-item>
         <el-form-item class="btns">
             <el-button type="primary" @click="register" style="background-color: #8199af; border: none">Sign up</el-button>
-            Already have an account?<el-link type="primary" @click="chooseComponent()">Sign in</el-link>
+            Already have an account?<el-link type="primary" @click="chooseComponent('login')">Sign in</el-link>
         </el-form-item>
       </el-form>
     </section><!-- content -->
@@ -51,8 +51,9 @@ export default   {
     }
   },
   methods:{
-    chooseComponent(){
-      this.$emit("handleClose")
+    chooseComponent(component){
+      //将选择的子组件传递给父组件（func）
+      this.$emit('func',component)
     },
     checkEmail(email){
 
@@ -102,8 +103,7 @@ h1{
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  border: none;
-  margin: 5px;
+  border: 1px solid #dedede;
 
   position: absolute;
   left: 50%;
