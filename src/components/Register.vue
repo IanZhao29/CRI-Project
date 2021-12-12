@@ -1,175 +1,132 @@
 <template>
-  <div class="text-center">
-    <v-dialog
-        v-model="dialog"
-        width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            color="grey"
-            dark
-            v-bind="attrs"
-            v-on="on"
-        >
-          Register
-        </v-btn>
-      </template>
-      <v-stepper v-model="e1">
-        <v-stepper-header>
-          <v-stepper-step
-              :complete="e1 > 1"
-              step="1"
-          >
-            User Name
-          </v-stepper-step>
-
-          <v-divider></v-divider>
-
-          <v-stepper-step
-              :complete="e1 > 2"
-              step="2"
-          >
-            Password
-          </v-stepper-step>
-
-          <v-divider></v-divider>
-
-          <v-stepper-step step="3">
-            Good Job!
-          </v-stepper-step>
-        </v-stepper-header>
-
-        <v-stepper-items>
-          <v-stepper-content step="1">
-              <div style="height: 100px">
-                <span>UserName:</span>
-                <v-text-field
-                    v-model="registerForm.username"
-                    label="UserName"
-                    placeholder="Placeholder"
-                    :rules="[rules.required, rules.min]"
-                    name="input-10-1"
-                    hint="At least 6 characters"
-                    counter
-                ></v-text-field>
-              </div>
-            <v-btn
-                color="primary"
-                @click="e1 = 2"
-            >
-              Continue
-            </v-btn>
-
-            <v-btn text @click="dialog = false">
-              Cancel
-            </v-btn>
-          </v-stepper-content>
-
-          <v-stepper-content step="2">
-            <div style="height: 100px">
-              <span>Password:</span>
-              <v-text-field
-                  v-model="registerForm.password"
-                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="[rules.required, rules.min]"
-                  :type="show ? 'text' : 'password'"
-                  name="input-10-1"
-                  label="Please input your password!"
-                  hint="At least 6 characters"
-                  counter
-                  @click:append="show = !show"
-              ></v-text-field>
-            </div>
-            <v-btn
-                color="primary"
-                @click="e1 = 3"
-            >
-              Continue
-            </v-btn>
-
-            <v-btn text @click="e1 = 1">
-              Last Step
-            </v-btn>
-          </v-stepper-content>
-
-          <v-stepper-content step="3">
-            <span>Please Recheck your UserName and Password</span>
-            <v-text-field
-                :value="registerForm.username"
-                label="UserName"
-                readonly
-                counter
-            ></v-text-field>
-            <v-text-field
-                :value="registerForm.password"
-                label="Password"
-                readonly
-                counter
-                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show2 ? 'text' : 'password'"
-                @click:append="show2 = !show2"
-            ></v-text-field>
-            <v-btn
-                color="primary"
-                @click="handleSubmit"
-            >
-              Submit!
-            </v-btn>
-
-            <v-btn text @click="e1 = 2">
-              Last Step
-            </v-btn>
-          </v-stepper-content>
-        </v-stepper-items>
-      </v-stepper>
-    </v-dialog>
-  </div>
+  <div class="container">
+    <section id="content">
+      <h1>Register</h1>
+      <div id="back" @click="chooseComponent('WelcomeChoose')">
+        <i class="iconfont icon-cuowuguanbiquxiao"></i>
+      </div>
+      <el-form ref="registerFormRef" :rules="registerRules" :model="registerForm" class="login_form" label-width="0">
+        <el-form-item prop="username">
+          <el-input v-model="registerForm.username" prefix-icon="iconfont icon-yonghu" placeholder="username"></el-input>
+        </el-form-item>
+        <el-form-item prop="email">
+          <el-input v-model="registerForm.email" prefix-icon="iconfont icon-youxiang" placeholder="email" @blur="checkEmail"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="registerForm.password" type="password" prefix-icon="iconfont icon-mima" placeholder="password"></el-input>
+        </el-form-item>
+        <el-form-item prop="check_password">
+          <el-input v-model="registerForm.checkPassword" type="password" prefix-icon="iconfont icon-mima" placeholder="check password"></el-input>
+        </el-form-item>
+        <el-form-item class="btns">
+            <el-button type="primary" @click="register" style="background-color: #8199af; border: none">Sign up</el-button>
+            Already have an account?<el-link type="primary" @click="chooseComponent()">Sign in</el-link>
+        </el-form-item>
+      </el-form>
+    </section><!-- content -->
+  </div><!-- container -->
 </template>
 
 <script>
-import {registerAPI} from "../api/loginAPI";
-
-export default {
-  name: "Register",
-  data() {
-    return {
-      dialog: false,
-      e1: 1,
-      show: false,
-      show2: false,
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 6 || 'Min 6 characters',
-      },
-      registerForm: {
+export default   {
+  name: "Login",
+  data(){
+    return{
+      registerForm:{
         username: "",
+        email:"",
         password: "",
+        checkPassword:""
       },
+      registerRules:{
+        username:[
+          {required: true, message: 'Enter Username', trigger:'blur'},
+          {min: 5, max: 12, message: 'Username between 5 - 12 long', trigger: 'blur'}//blur: 失去焦点属性
+        ],
+        password:[
+          {required: true, message: 'Enter Password', trigger:'blur'},
+          {min: 6, max: 10, message: 'Username between 6 - 10 long', trigger: 'blur'}
+        ]
+      }
     }
   },
-  methods: {
-    handleSubmit() {
+  methods:{
+    chooseComponent(){
+      this.$emit("handleClose")
+    },
+    checkEmail(email){
 
-      registerAPI(this.registerForm).then(res => {
-        this.dialog = false;
-        this.e1 = 1;
-        console.log(res);
-        this.$store.dispatch("message/openSnackbar", {
-          msg: "Register Success!",
-          color: "success"
-        })
-      }).catch(err => {
-        console.log(err);
-        this.$store.dispatch("message/openSnackbar", {
-          msg: err,
-          color: "error"
-        })
+      if (email === ''){
+        this.$message.error("Email already exists.")
+        this.registerForm.email='';
+      }
+    },
+    register(){
+      this.$refs.registerFormRef.validate(async valid =>{
+        if (valid){
+          await this.$router.push('/')
+        }
       })
-    }
+      this.$refs.registerFormRef.validate(async valid =>
+      {
+       if (!valid) return;
+       var formData = new FormData;
+       formData.append("username",this.registerForm.username)
+       formData.append("email",this.registerForm.email)
+       formData.append("password", this.registerForm.password)
+
+       const {data:res} = await this.$http.post("/userinfo/save",formData);//访问后台*/
+        console.log(res.message)
+       if ( res.message === "Registry success"){
+         this.chooseComponent("login");
+         this.$message.success("Check your email to confirm register")//信息提示
+       }else {
+         this.$message.error("Operation is Failed")//错误提示
+       }
+      })
+
+    },
+
+
   }
 }
 </script>
 
 <style scoped>
+h1{
+  color: #7E7E7E;
+}
+.container{
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: none;
+  margin: 5px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.el-link{
+  margin-left: 10px;line-height: 20px
+}
+
+#back{
+  position: absolute;
+  right: 5%;
+  top: 10%;
+}
+
+.iconfont{
+  color: #7E7E7E;
+}
+
+.login_form{
+  margin-top: 10px;
+}
 
 </style>

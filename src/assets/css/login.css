@@ -142,6 +142,29 @@
     background: #148f88;
 }
 
+.register-button {
+    position: absolute;
+    left: 76.458%;
+    top: 78%;
+    width: 13.889%;
+    height: 6.087%;
+
+    background: #17ACA3;
+    border-radius: 4px;
+
+    font-family: Alibaba PuHuiTi, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
 .login-account-box {
     position: absolute;
     width: 30%;
