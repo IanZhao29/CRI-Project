@@ -8,7 +8,7 @@ let url = {
     port: 5672,
     username: 'lzz',
     password: '123456',
-    vhost: '/'
+    vhost: '/lzz'
 }
 
 amqp.connect(url, function(error0, connection) {
