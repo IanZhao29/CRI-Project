@@ -91,10 +91,11 @@ export default {
         formData.append("email", this.loginForm.email)
         formData.append("password", this.loginForm.password)
         postLoginForm('POST', formData).then(data => {
-          if (data.data.status !== 200) {
+          if (data.status !== 200) {
             that.$Message.error("Operation is Failed");
           } else {
             that.$store.dispatch("userLogin", true);
+            // console.log("aaa")
             localStorage.setItem("Flag", "isLogin");
             that.$router.push("/main");
           }

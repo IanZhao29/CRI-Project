@@ -2,16 +2,14 @@
   <div class="container">
     <section id="content">
       <h1>Register</h1>
-      <div id="back" @click="chooseComponent('WelcomeChoose')">
+      <div id="back" @click="chooseComponent()">
         <i class="iconfont icon-cuowuguanbiquxiao"></i>
       </div>
       <el-form ref="registerFormRef" :rules="registerRules" :model="registerForm" class="login_form" label-width="0">
         <el-form-item prop="username">
           <el-input v-model="registerForm.username" prefix-icon="iconfont icon-yonghu" placeholder="username"></el-input>
         </el-form-item>
-        <el-form-item prop="email">
-          <el-input v-model="registerForm.email" prefix-icon="iconfont icon-youxiang" placeholder="email" @blur="checkEmail"></el-input>
-        </el-form-item>
+
         <el-form-item prop="password">
           <el-input v-model="registerForm.password" type="password" prefix-icon="iconfont icon-mima" placeholder="password"></el-input>
         </el-form-item>
@@ -20,7 +18,7 @@
         </el-form-item>
         <el-form-item class="btns">
             <el-button type="primary" @click="register" style="background-color: #8199af; border: none">Sign up</el-button>
-            Already have an account?<el-link type="primary" @click="chooseComponent('login')">Sign in</el-link>
+            Already have an account?<el-link type="primary" @click="chooseComponent()">Sign in</el-link>
         </el-form-item>
       </el-form>
     </section><!-- content -->
@@ -28,13 +26,13 @@
 </template>
 
 <script>
+import {registerAPI} from "../api/loginAPI";
 export default   {
-  name: "Login",
+  name: "Register",
   data(){
     return{
       registerForm:{
         username: "",
-        email:"",
         password: "",
         checkPassword:""
       },
@@ -51,9 +49,9 @@ export default   {
     }
   },
   methods:{
-    chooseComponent(component){
+    chooseComponent(){
       //将选择的子组件传递给父组件（func）
-      this.$emit('func',component)
+      this.$emit("handleClose")
     },
     checkEmail(email){
 
@@ -73,10 +71,9 @@ export default   {
        if (!valid) return;
        var formData = new FormData;
        formData.append("username",this.registerForm.username)
-       formData.append("email",this.registerForm.email)
        formData.append("password", this.registerForm.password)
 
-       const {data:res} = await this.$http.post("/userinfo/save",formData);//访问后台*/
+       const {data:res} = registerAPI(formData);//访问后台*/
         console.log(res.message)
        if ( res.message === "Registry success"){
          this.chooseComponent("login");
