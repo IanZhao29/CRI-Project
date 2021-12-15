@@ -34,8 +34,16 @@
         </el-form-item>
       </el-form>
       <button class="login-button" @click="login">{{ logInButton }}</button>
+      <button class="register-button" @click="register">REGISTER</button>
+      <el-drawer
+          title="register"
+          size='35%'
+          :visible.sync="isRegister"
+          :direction="rtl"
+          :with-header="false">
+        <register @handleClose = "close"/>
+      </el-drawer>
     </div>
-    <register/>
   </v-app>
 </template>
 
@@ -70,7 +78,8 @@ export default {
           {required: true, message: 'Enter Password', trigger: 'blur'},
           {min: 1, max: 10, message: 'Username between 1 - 10 long', trigger: 'blur'}
         ]
-      }
+      },
+      isRegister: false
     }
   },
   methods: {
@@ -92,6 +101,12 @@ export default {
         });
       })
     },
+    register(){
+      this.isRegister = true
+    },
+    close(){
+      this.isRegister = false
+    }
   },
 }
 </script>
