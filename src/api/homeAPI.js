@@ -18,6 +18,10 @@ export const getWeather = () => {
     return axios.get(weatherURL)
 }
 
+export const getUserList = () => {
+    return axios.get('http://8.141.56.170:8084/userinfo/list', {})
+}
+
 export const getAirQuality = () => {
     return axios.get('https://api.waqi.info/feed/fuzhou/?token=aa50acc9ef4b0f0771dec39d2cd2007d2da88089 ')
 }

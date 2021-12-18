@@ -1,7 +1,8 @@
+const axios = require('axios')
+const bodyParser =  require('body-parser');
 const amqp = require('amqplib/callback_api');
 let msgStack = [];
 let boolSwitch = "1";
-let location = null;
 let url = {
     protocol: 'amqp',
     hostname: '8.141.56.170',
@@ -58,8 +59,11 @@ const app = express();
 
 var cors = require("cors");
 
+//引入外部模块
 app.use(cors());
+app.use(bodyParser.json());
 
+// rabbitmq part
 // eslint-disable-next-line no-unused-vars
 app.get('/amqp',(req,res,next)=>{
     res.send(msgStack)
@@ -78,6 +82,19 @@ app.get('/switchC', (req, res) => {
 
 app.get('/switch', (req, res) => {
     res.send(boolSwitch);
+    setTimeout(() => {}, 3000);
+})
+
+//some other info
+
+app.post('/userinfo/login', (req, res) => {
+    console.log(req.body);
+    axios.post('http://8.141.56.170:8084/userinfo/login', req.body).then(result => {
+        console.log(result)
+        res.send(result)
+    }).catch(err => {
+        res.send(err)
+    })
     setTimeout(() => {}, 3000);
 })
 

@@ -9,11 +9,19 @@
 
 <script>
 import Message from "./components/message";
+import {getUserList} from './api/homeAPI'
 
 export default {
   name: 'App',
   components: {
     Message,
+  },
+  mounted() {
+    getUserList().then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
   },
   computed: {
     cachedViews() {
