@@ -1,6 +1,7 @@
 const axios = require('axios')
 const bodyParser =  require('body-parser');
 const amqp = require('amqplib/callback_api');
+
 let msgStack = [];
 let boolSwitch = "1";
 let url = {
@@ -9,7 +10,7 @@ let url = {
     port: 5672,
     username: 'lzz',
     password: '123456',
-    vhost: '/lzz'
+    vhost: '/'
 }
 
 amqp.connect(url, function(error0, connection) {
@@ -24,7 +25,6 @@ amqp.connect(url, function(error0, connection) {
             return;
         }
         const queue = 'climate_data_frontend_queue';
-
         channel.assertQueue(queue, {
             durable: true
         })
@@ -80,7 +80,7 @@ app.get('/switchC', (req, res) => {
     setTimeout(() => {}, 3000);
 })
 
-app.get('/switch', (req, res) => {
+app.post('/switch', (req, res) => {
     res.send(boolSwitch);
     setTimeout(() => {}, 3000);
 })
